@@ -1,0 +1,1 @@
+# applicaiton-static-code
