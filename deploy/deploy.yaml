@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: static
-        image: ecrurl/
+        image: 637423581881.dkr.ecr.ap-south-1.amazonaws.com/static-app:tag
         ports:
         - containerPort: 80
         resources:
