@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: static-ingress
 spec:
-  ingressClassName: nginx-example
+  ingressClassName: nginx
   rules:
   - host: "static.foo.com"
     http:
