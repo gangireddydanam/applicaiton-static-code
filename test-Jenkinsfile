@@ -4,17 +4,17 @@ pipeline {
     stages {
         stage('docker-build') {
             steps {
-                sudo docker images
+                sh "sudo docker images"
             }
         }
         stage('k8s-deploy') {
             steps {
-                kubectl get po -A
+                sh "kubectl get po -A"
             }
         }
         stage('pods-validate') {
             steps {
-               kubectl get po -A
+               sh "kubectl get po -A"
             }
         }
     }
