@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('docker-build') {
+            steps {
+                sudo docker images
+            }
+        }
+        stage('k8s-deploy') {
+            steps {
+                kubectl get po -A
+            }
+        }
+        stage('pods-validate') {
+            steps {
+               kubectl get po -A
+            }
+        }
+    }
+}
