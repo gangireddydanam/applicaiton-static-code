@@ -1,0 +1,33 @@
+pipeline {
+
+    stages {
+        stage('docker-build') {
+            steps {
+                sh """
+                aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 637423581881.dkr.ecr.ap-south-1.amazonaws.com
+                sudo docker build -t 637423581881.dkr.ecr.ap-south-1.amazonaws.com/static-app:$BUILD_NUMBER .
+                sudo docker push 637423581881.dkr.ecr.ap-south-1.amazonaws.com/static-app:$BUILD_NUMBER
+                """
+            }
+        }
+        stage('k8s-deploy') {
+            steps {
+                sh """
+                aws eks update-kubeconfig --region ap-south-1 --name education-eks-iR5hjJYc
+                cd deploy 
+                sed -i 's/tag/$BUILD_NUMBER/g' deploy.yaml 
+                kubectl apply -f deploy.yaml -n static
+                kubectl apply -f svc.yaml -n static
+                kubectl apply -f ing.yaml -n static
+                """
+            }
+        }
+        stage('pods-validate') {
+            steps {
+               sh """
+               kubectl get po -n static
+               """
+            }
+        }
+    }
+}

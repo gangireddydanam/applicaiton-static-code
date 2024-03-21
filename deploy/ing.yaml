@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: static-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "static.foo.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: static-svc
+            port:
+              number: 80
