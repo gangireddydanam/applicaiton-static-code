@@ -1,0 +1,21 @@
+stages: 
+  - docker-build
+  - dev-deploy 
+  - validate
+  - stage-deploy 
+  - validate 
+  - prod-deploy
+  - validate 
+
+docker-build: 
+  script: 
+    - aws ecr get login 
+    - docker build -t 
+    - docker push build number 
+dev-deploy: 
+  script: 
+    - aws eks update-config 
+    - kubect config set-context <contextname>
+    - update the image number in deploy.yaml/helm command --set tag=$BUILD_NUMBER
+    - tag = build number =values.tag 
+  
