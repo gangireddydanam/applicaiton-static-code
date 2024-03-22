@@ -12,6 +12,8 @@ docker-build:
     - aws ecr get login 
     - docker build -t 
     - docker push build number 
+  tags: 
+    - k8s-agent
 dev-deploy: 
   script: 
     - aws eks update-config 
